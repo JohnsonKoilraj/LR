@@ -6,7 +6,6 @@ from utils import pagination,paginate
 from sqlalchemy.orm import Session
 from app.models import *
 
-
 router = APIRouter()
 
 @router.post("/view_consigner_copy")
@@ -16,7 +15,6 @@ async def view_consignor_copy(
     gc_no:str=Form(...)
 
 ):
-
     if current_user:
         get_details=db.query(ConsignorCopy).filter(
             ConsignorCopy.gc_no==gc_no,
@@ -96,9 +94,7 @@ async def view_consignor_copy(
                             if get_details.date_of_receipt else "",
                             "created_at":get_details.created_at})
             return consignor_data
-
-            
-
+        
         else:
             return{
                 "status":"0",
