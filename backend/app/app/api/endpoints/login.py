@@ -4,11 +4,10 @@ from app.core import security
 from app.core.config import settings
 from app.core.security import get_password_hash
 from sqlalchemy.orm import Session
-from datetime import datetime,timedelta
+from datetime import timedelta
 from sqlalchemy import or_
 
 router = APIRouter()
-
     
 @router.post("/login/access-token")
 def login_access_token(

@@ -8,8 +8,107 @@ from app.models import *
 
 
 router = APIRouter()
-@router.post("/consignor_report")
-async def consignor_details(
+
+@router.post("/view_consigner_copy")
+async def view_consignor_copy(
+    *, db: Session = Depends(get_db), 
+    current_user=Depends(get_current_user),
+    gc_no:str=Form(...)
+
+):
+
+    if current_user:
+        get_details=db.query(ConsignorCopy).filter(
+            ConsignorCopy.gc_no==gc_no,
+            ConsignorCopy.status==1
+        ).first()
+
+        consignor_data={}
+
+        if get_details:
+            consignor_data.update({"gst_no":get_details.gst_no,
+                                   "cin":get_details.cin,
+                            "insurance":get_details.insurance,
+                            "insurer":get_details.insurer
+                              if get_details.insurer else "",
+                            "policy_no":get_details.policy_no
+                              if get_details.policy_no else "",
+                            "policy_dt":get_details.policy_dt 
+                              if get_details.policy_dt else "",
+                            "policy_rs":get_details.policy_rs 
+                               if get_details.policy_rs else "",
+                            "risk_rs":get_details.risk_rs 
+                               if get_details.risk_rs else "",
+                            "gc_no":get_details.gc_no 
+                               if get_details.gc_no else "",
+                            "date":get_details.date 
+                              if get_details.date else "",
+                            "vehicle_no":get_details.vehicle_no 
+                              if get_details.vehicle_no else "",
+                            "e_way_bill":get_details.e_way_bill 
+                              if get_details.e_way_bill else "",
+                            "from_date":get_details.from_date 
+                              if get_details.from_date else "",
+                            "to_date":get_details.to_date 
+                              if get_details.to_date else "",
+                            "delivery_instruction":get_details.delivery_instruction 
+                                 if get_details.delivery_instruction else "",
+                            "booking_type":get_details.booking_type 
+                            if get_details.booking_type else "",
+                            "consignor_name":get_details.consignor_name 
+                            if get_details.consignor_name else "",
+                            "consignor_mobile_no":get_details.consignor_mobile_no 
+                            if get_details.consignor_mobile_no else "",
+                            "consignor_address":get_details.consignor_address
+                              if get_details.consignor_address else "",
+                            "consignor_gst":get_details.consignor_gst 
+                            if get_details.consignor_gst else "",
+                            "consignee_name":get_details.consignee_name 
+                            if get_details.consignee_name else "",
+                            "consignee_mobile_no":get_details.consignee_mobile_no
+                              if get_details.consignee_mobile_no else "",
+                            "consignee_address":get_details.consignee_address
+                              if get_details.consignee_address else "",
+                            "consignee_gst":get_details.consignee_gst
+                             if get_details.consignee_gst else "",
+                            "packages":get_details.packages 
+                            if get_details.packages else "",
+                            "description":get_details.description 
+                            if get_details.description else "",
+                            "actual_weight":get_details.actual_weight
+                              if get_details.actual_weight else "",
+                            "chargeable_weight":get_details.chargeable_weight
+                              if get_details.chargeable_weight else "",
+                            "rate_kg":get_details.rate_kg 
+                            if get_details.rate_kg else "",
+                            "basis_of_freight":get_details.basis_of_freight 
+                            if get_details.basis_of_freight else "",
+                            "rs":get_details.rs if get_details.rs else "",
+                            "declared_value_goods":get_details.declared_value_goods 
+                            if get_details.declared_value_goods else "",
+                            "invoice_dc_no":get_details.invoice_dc_no
+                              if get_details.invoice_dc_no else "",
+                            "invoice_dc_dt":get_details.invoice_dc_dt 
+                            if get_details.invoice_dc_dt else "",
+                            "receivers_name":get_details.receivers_name 
+                            if get_details.receivers_name else "",
+                            "date_of_receipt":get_details.date_of_receipt 
+                            if get_details.date_of_receipt else "",
+                            "created_at":get_details.created_at})
+            return consignor_data
+
+            
+
+        else:
+            return{
+                "status":"0",
+                "msg":"invalid gc no"
+            }
+
+
+    
+@router.post("/consignor_report_list")
+async def consignor_details_list(
     *, db: Session = Depends(get_db), 
     current_user=Depends(get_current_user),
     page:int=1,

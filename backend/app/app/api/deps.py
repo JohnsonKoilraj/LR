@@ -13,8 +13,6 @@ from sqlalchemy import or_
 from pydantic import ValidationError
 
 
-
-
 def get_db() -> Generator:
     try:
         db = SessionLocal()

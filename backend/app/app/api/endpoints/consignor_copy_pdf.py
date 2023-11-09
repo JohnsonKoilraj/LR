@@ -261,7 +261,6 @@ async def create_consignor_copy_pdf(
             pdf.set_xy(140.5,149)
             pdf.cell(40,8,data.rate_kg,align="C")
 
-
             pdf.set_xy(178.5,140.5)
             pdf.cell(60,7, "Basis of freight",align="C",fill=1)
 
@@ -279,7 +278,7 @@ async def create_consignor_copy_pdf(
             pdf.set_xy(239.5,140.5)
             pdf.cell(35,7, "Rs",align="C",fill=1)
 
-            pdf.set_xy(239.5,147.5) 
+            pdf.set_xy(239.5,149) 
             pdf.cell(35,8, data.rs,align="C")
 
             #vertical
@@ -296,7 +295,6 @@ async def create_consignor_copy_pdf(
             pdf.set_xy(178.5,156.5)
             pdf.cell(96,7, "for",align="C",fill=1)
             pdf.line(178,163,275,163)
-
 
             pdf.line(5,175,275,175)
             
@@ -319,8 +317,7 @@ async def create_consignor_copy_pdf(
             pdf.cell(45,10, "Invoice/DC No",fill=1,align="C")
             pdf.set_xy(95.5,186.5)
             pdf.cell(45,3, data.invoice_dc_no,align="C")
-
-            
+          
             #vertical
             pdf.line(140,175,140,210)
 
@@ -341,6 +338,8 @@ async def create_consignor_copy_pdf(
 
             pdf.line(5,185.5,275,185.5)
             pdf.line(5,191,178,191)
+            pdf.set_xy(5.5,192.5)
+            pdf.cell(40,3, data.receivers_name,align="C")
 
             #Second page
 
@@ -360,7 +359,7 @@ async def create_consignor_copy_pdf(
             pdf.cell(160,4,"them and that they have accepted the same in good faith for transportion.")
 
             pdf.set_xy(8,45)
-            pdf.cell(70,4,"3. The Consignment is accepted on 'Said to Contain’ basis.".encode('UTF-8').decode('latin-1'))
+            pdf.cell(70,4,"3. The Consignment is accepted on 'Said to Contain' basis.".encode('UTF-8').decode('latin-1'))
             
             pdf.set_xy(8,50)
             pdf.cell(180,4,"4. The Consignor is responsible to provide appropriate documents and permits as per the prevailing laws for the ")
@@ -371,7 +370,6 @@ async def create_consignor_copy_pdf(
             pdf.set_xy(13,65)
             pdf.cell(180,4," any incorrect or false declaration. ")
         
-
             pdf.set_xy(8,70)
             pdf.cell(180,4,"5. The Consignor hereby declares that the subject consignment does not contain any contraband or prohibited goods")
             pdf.set_xy(13,75)
@@ -399,7 +397,6 @@ async def create_consignor_copy_pdf(
             pdf.set_xy(13,125)
             pdf.cell(180,4,"c) Inherent nature or any special characteristic or combustion nature of the subject consignment.")
         
-
             pdf.set_xy(8,130)
             pdf.cell(180,4,"7. liability of the Company is restricted to Rs.5000/ or the total freight amount paid, whichever is lower, irrespective of the")
             pdf.set_xy(13,135)
